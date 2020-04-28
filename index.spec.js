@@ -36,4 +36,20 @@ describe('args parsing', () => {
 
         expect(parse()).toEqual(expectedResult);
     });
+
+    it('should camelize --test-option to testOption', () => {
+        const {
+            parseOptions
+        } = require('./index');
+        const options = ['--flag-option1', '--flag-option2', 'value', '--flag-option3=value', '--flag4', '--new-flag-option5'];
+        const expectedResult = {
+            "flagOption1": true,
+            "flagOption2": "value",
+            "flagOption3": "value",
+            "flag4": true,
+            "newFlagOption5": true
+        };
+
+        expect(parseOptions(options)).toEqual(expectedResult);
+    });
 });

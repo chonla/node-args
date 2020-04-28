@@ -45,7 +45,13 @@ function parseOptions(argv) {
         return [s[0], s[1]];
     })
 
-    const options = argsMap.reduce((a, c) => {
+    const options = argsMap.map(v => {
+        // camelize
+        const tokens = v[0].split('-');
+        let newName = tokens.map(t => t.substr(0, 1).toUpperCase() + t.substr(1)).join('');
+        newName = newName.substr(0, 1).toLowerCase() + newName.substr(1);
+        return [newName, v[1]];
+    }).reduce((a, c) => {
         a[c[0]] = c[1];
         return a;
     }, {});
